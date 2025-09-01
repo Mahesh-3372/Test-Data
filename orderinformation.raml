@@ -1,0 +1,113 @@
+#%RAML 1.0
+title: orderInformation
+version: v1
+mediaType: application/json
+description: This API gives about order related information to the customers
+
+
+
+/orders:
+    description: This endpoint for Create a new order
+    post:
+        body:
+            application/json:
+                example: {
+                    "orderId": "ORD01",
+                    "customerId": "CUS001",
+                    "orderDate": "28-08-2025",
+                    "status": "pending",
+                    "items": {
+                        "productId": "PD01",
+                        "productName": "Key-Board",
+                        "quantity": 2,
+                        "price": 1500.00                   
+                        }
+                }
+        responses:
+            201:
+                body:
+                    application/json:
+                        example: {
+                            "status": "order created successfully",
+                            "orderId": "ORD01"
+                        }
+    get:
+        description: "This endpoint gives all orders"
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: [
+                            {
+                    "orderId": "ORD01",
+                    "customerId": "CUS001",
+                    "orderDate": "28-08-2025",
+                    "status": "pending",
+                    "items": {
+                        "productId": "PD01",
+                        "productName": "mouse",
+                        "quantity": 1,
+                        "price": 500.00                   
+                        }
+                },
+                {
+                    "orderId": "ORD02",
+                    "customerId": "CUS002",
+                    "orderDate": "27-08-2025",
+                    "status": "pending",
+                    "items": {
+                        "productId": "PD02",
+                        "productName": "Key-Board",
+                        "quantity": 2,
+                        "price": 1500.00                   
+                        }
+                }
+                        ]
+/orders/{orderId}:
+    uriParameters:
+        orderId:
+            type: string
+            example: "ORD01"
+    put:
+        description: This endpoint gives update order by orderId
+        body:
+            application/json:
+                example: {
+                    "orderId": "ORD01",
+                    "customerId": "CUS001",
+                    "orderDate": "28-08-2025",
+                    "status": "pending",
+                    "items": {
+                        "productId": "PD01",
+                        "productName": "Key-Board",
+                        "quantity": 2,
+                        "price": 1500.00                   
+                        }
+                }
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: {
+                            "message": "order updated successfully"
+                        }   
+    get:
+        description: This endpoint gives Retrive specific order by orderId 
+        responses:
+            200:
+                body:
+                    application/json:
+                        example:  {
+                    "orderId": "ORD01",
+                    "customerId": "CUS001",
+                    "orderDate": "28-08-2025",
+                    "status": "pending",
+                    "items": {
+                        "productId": "PD01",
+                        "productName": "Key-Board",
+                        "quantity": 2,
+                        "price": 1500.00                   
+                        }
+                }                        
+
+
