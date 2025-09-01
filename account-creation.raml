@@ -1,0 +1,87 @@
+#%RAML 1.0
+title: account-creation
+mediaType: application/json
+
+/accounts:
+  post:
+    description: Create a new account
+    body:
+      application/json:
+        example: |
+          {
+            "username": "johndoe",
+            "email": "john@example.com",
+            "password": "securePass123"
+          }
+    responses:
+      201:
+        description: Account created successfully
+        body:
+          application/json:
+            example: |
+              {
+                "id": "123456",
+                "message": "Account created successfully"
+              }
+      400:
+        description: Invalid input
+      409:
+        description: Account already exists
+
+  get:
+    description: Get list of all accounts
+    responses:
+      200:
+        description: List of accounts
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "id": "123456",
+                  "username": "johndoe",
+                  "email": "john@example.com"
+                },
+                {
+                  "id": "789012",
+                  "username": "janedoe",
+                  "email": "jane@example.com"
+                }
+              ]
+
+/accounts/{id}:
+  uriParameters:
+    id:
+      description: The ID of the account
+      type: string
+      required: true
+
+  get:
+    description: Get account details by ID
+    responses:
+      200:
+        description: Account details
+        body:
+          application/json:
+            example: |
+              {
+                "id": "123456",
+                "username": "johndoe",
+                "email": "john@example.com"
+              }
+      404:
+        description: Account not found
+
+  delete:
+    description: Delete account by ID
+    responses:
+      200:
+        description: Account deleted successfully
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Account deleted successfully"
+              }
+      404:
+        description: Account not found
